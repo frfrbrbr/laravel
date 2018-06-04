@@ -71,7 +71,7 @@ class VotablesFactory {
             $votable = new Votable();
             $votable->url =  $apiResponse->message;
             $votable->type = $type;
-            $votable->name = str_replace("https://images.dog.ceo/breeds/boxer/", "", $apiResponse->message);
+            $votable->name = 'Random Dog';
             $votable->img = $apiResponse->message;
             $votable->save();
         }
