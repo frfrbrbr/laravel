@@ -42,9 +42,11 @@
             <div class="alert alert-success">
                 You have successfully added a plus vote for {{ $successArray['upVoteObject']->name}} it's rating is now {{ $successArray['upVoteObject']->rating}}
             </div>
-            <div class="alert alert-danger">
-                You have successfully added a minus vote for {{ $successArray['downVoteObject']->name}} it's rating is now {{ $successArray['downVoteObject']->rating}}
-            </div>
+            @foreach ($successArray['downVoteObjects'] as $value)
+                <div class="alert alert-danger">
+                    You have successfully added a minus vote for {{ $value->name}} it's rating is now {{ $value->rating}}
+                </div>
+            @endforeach
         @endif
         <script type="text/JavaScript" src="/js/app.js"></script>
     </body>
