@@ -31,12 +31,16 @@ class VotableController extends Controller
                 $upVoteObject->voteUp();
                 $successArray['upVoteObject'] = $upVoteObject;
             }
-            
-            $downVoteObject= Votable::find($request->input('downVoteUrl'));
-            if (!empty($downVoteObject)) {
-                $downVoteObject->voteDown();
-                $successArray['downVoteObject'] = $downVoteObject;
+             
+            $successArray['downVoteObjects'] = []; 
+            foreach ($request->input('downVoteUrl') as $value) {
+                $downVoteObject= Votable::find($value);
+                if (!empty($downVoteObject)) {
+                    $downVoteObject->voteDown();
+                    $successArray['downVoteObjects'][] = $downVoteObject;
+                }
             }
+            
         }
         
         $request->session()->put('successArray', $successArray);

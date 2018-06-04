@@ -37,7 +37,7 @@ try {
             $('.votable').each(function () {
                     if (upVoteUrl != $(this).attr('data-url')) {
                         postForm.append($("<input/>").attr({
-                            name: 'downVoteUrl',
+                            name: 'downVoteUrl[]',
                             value: $(this).attr('data-url'),
                             type: 'hidden'
                         }));
