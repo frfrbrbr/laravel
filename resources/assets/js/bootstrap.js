@@ -12,6 +12,43 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
+    
+    $(function() {
+        $('body').on('click', '.votable', function(e) {
+            e.preventDefault();
+            
+            var postForm = $("<form/>").attr({
+                method: "post",
+                action: '/vote',
+                'accept-charset': "ISO-8859-1"
+            });
+            postForm.append($("<input/>").attr({
+                name: '_token',
+                value: $('meta[name="csrf-token"]').attr('content'),
+                type: 'hidden'
+            }));
+            var upVoteUrl = $(this).attr('data-url');
+            postForm.append($("<input/>").attr({
+                name: 'upVoteUrl',
+                value: upVoteUrl,
+                type: 'hidden'
+            }));
+            
+            $('.votable').each(function () {
+                    if (upVoteUrl != $(this).attr('data-url')) {
+                        postForm.append($("<input/>").attr({
+                            name: 'downVoteUrl',
+                            value: $(this).attr('data-url'),
+                            type: 'hidden'
+                        }));
+                    }
+            });
+            
+            $('body').append(postForm);
+            postForm.submit();
+            
+        });
+    });
 } catch (e) {}
 
 /**
